@@ -5,9 +5,9 @@ import {
   convertCollectionsSnapshotToMap 
 } from '../../firebase/firebase.utils';
 
-export const fetchCollectionsSuccess = collectionMap => ({
+export const fetchCollectionsSuccess = collectionsMap => ({
   type: ShopActionTypes.FETCH_COLLECTIONS_SUCCESS,
-  payload: collectionMap
+  payload: collectionsMap
 });
 
 export const fetchCollectionsFailure = errorMessage => ({
