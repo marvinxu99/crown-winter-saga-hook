@@ -31,6 +31,16 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
     </LogoContainer>
 
     <OptionsContainer>
+      { /* Logic for displaying SIGN OUT or SIGN IN */
+        currentUser ?
+        <OptionDiv onClick={ signOutStart }>
+          SIGN OUT
+        </OptionDiv>
+        :  
+        <OptionLink to='/signin'>
+          SIGN IN
+        </OptionLink>
+      }
       <OptionLink to='/admin'>
         ADMIN
       </OptionLink>
@@ -46,16 +56,6 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
       <OptionLink to='/contact'>
         CONTACT
       </OptionLink>       
-      { /* Logic for displaying SIGN OUT or SIGN IN */
-        currentUser ?
-        <OptionDiv onClick={ signOutStart }>
-          SIGN OUT
-        </OptionDiv>
-        :  
-        <OptionLink to='/signin'>
-            SIGN IN
-        </OptionLink>
-      }
       <CartIcon />
     </OptionsContainer>
     { 

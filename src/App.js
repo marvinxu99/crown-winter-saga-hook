@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -20,50 +20,45 @@ import ReduxFlowPage from './pages/redux-flow/redux-flow.component';
 import { selectUserCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
-import { ReactComponent as Logo } from './assets/images/winter-resized.svg';
+import { ReactComponent as LogoWinter } from './assets/images/winter-resized.svg';
 
 
-class App extends React.Component {
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ currentUser, checkUserSession }) => {
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
   
-  render() {
-    const { currentUser } = this.props;
-    return (
-      <div>
-        <Header />
-        {
-          currentUser ? <SignedInUser /> : null
-        }
-        <Switch>
-          <Route exact path='/' component={ HomePage } />
-          <Route path='/shop' component={ ShopPage }  />
-          <Route exact path='/home' render={ () => <Redirect to='/' /> } />
-          <Route exact path='/admin' component={ AdminPage } />
-          <Route exact path='/redux' component={ ReduxFlowPage } />
-          <Route exact path='/checkout' component={ CheckoutPage } />
-          <Route exact path='/contact' component={ ContactPage } />
-          <Route exact path='/signin' 
-            render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignUpPage />) } 
-          />
-          <Route path='/external' 
-            component={() => window.location = 'https://external.com/path'}
-          />     
-          <Route component={PageNotFound} />    
-        </Switch>
-        <div className='winter-beautiful'>
-          <Logo />
-          <a href='https://css-tricks.com/using-svg/' target='_blank' rel='noopener noreferrer'>
-            Winter is beautiful. <br />
-            Regular anchor tags work great.
-          </a>
-        </div>
+  return (
+    <div>
+      <Header />
+      {
+        currentUser ? <SignedInUser /> : null
+      }
+      <Switch>
+        <Route exact path='/' component={ HomePage } />
+        <Route path='/shop' component={ ShopPage }  />
+        <Route exact path='/home' render={ () => <Redirect to='/' /> } />
+        <Route exact path='/admin' component={ AdminPage } />
+        <Route exact path='/redux' component={ ReduxFlowPage } />
+        <Route exact path='/checkout' component={ CheckoutPage } />
+        <Route exact path='/contact' component={ ContactPage } />
+        <Route exact path='/signin' 
+          render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignUpPage />) } 
+        />
+        <Route path='/external' 
+          component={() => window.location = 'https://external.com/path'}
+        />     
+        <Route component={PageNotFound} />    
+      </Switch>
+      <div className='winter-beautiful'>
+        <LogoWinter />
+        <a href='https://css-tricks.com/using-svg/' target='_blank' rel='noopener noreferrer'>
+          Winter is beautiful. <br />
+          Regular anchor tags work great.
+        </a>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const mapStateToProps = createStructuredSelector({
