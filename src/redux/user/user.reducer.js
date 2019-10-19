@@ -2,6 +2,8 @@ import UserActionTypes from './user.types';
 
 const INITIAL_STATE = {
   currentUser: null,
+  signedInDateTime: null,
+  error: null
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +12,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
+        signedInDateTime: new Date(),
         error: null
       };
     
@@ -17,6 +20,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: null,
+        signedInDateTime: null,
         error: null
       };
 

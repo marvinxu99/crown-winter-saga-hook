@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import './App.css';
 
 import Header from './components/header/header.component';
+import SignedInUser from './components/signed-in-user/signed-in-user.component';
 
 import AdminPage from './pages/admin-page/admin-page.component';
 import HomePage from './pages/homepage/homepage.component';
@@ -34,6 +35,9 @@ class App extends React.Component {
     return (
       <div>
         <Header />
+        {
+          currentUser ? <SignedInUser /> : null
+        }
         <Switch>
           <Route exact path='/' component={ HomePage } />
           <Route path='/shop' component={ ShopPage }  />

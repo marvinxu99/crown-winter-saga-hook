@@ -18,9 +18,13 @@ import {
 } from '../../firebase/firebase.utils';
 
 
-export function* getSnapshotFromUserAuth(userAuth) {
+export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
-    const userRef = yield call(createUserProfileDocument, userAuth);
+    const userRef = yield call(
+      createUserProfileDocument, 
+      userAuth,
+      additionalData
+    );
     const userSnapshot = yield userRef.get();
     yield put(
       signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
@@ -71,18 +75,15 @@ export function* signOut() {
 export function* signUp({ payload: { email, password, displayName }}) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    const userData = { ...user, displayName }
-    console.log("userdata=", userData);
-    yield put(signUpSuccess(userData));
+    yield put(signUpSuccess({ user, addtionalData: {displayName} }));
   } catch (error) {
     yield put(signUpFailure(error));
   }
 };
 
-export function* signInAfterSignUp(payload) {
-  const user = payload;
+export function* signInAfterSignUp({ payload: { user, addtionalData } }) {
   try {
-    yield getSnapshotFromUserAuth(user);
+    yield getSnapshotFromUserAuth(user, addtionalData);
   } catch (error) {
     yield put(signInFailure(error));
   }

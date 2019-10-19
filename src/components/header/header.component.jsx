@@ -31,37 +31,37 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
     </LogoContainer>
 
     <OptionsContainer>
-        <OptionLink to='/admin'>
-          ADMIN
+      <OptionLink to='/admin'>
+        ADMIN
+      </OptionLink>
+      <OptionLink to='/redux'>
+        REDUX
+      </OptionLink>
+      <OptionLink to='/home'>
+        HOME
+      </OptionLink>
+      <OptionLink to='/shop'>
+        SHOP
+      </OptionLink>
+      <OptionLink to='/contact'>
+        CONTACT
+      </OptionLink>       
+      { /* Logic for displaying SIGN OUT or SIGN IN */
+        currentUser ?
+        <OptionDiv onClick={ signOutStart }>
+          SIGN OUT
+        </OptionDiv>
+        :  
+        <OptionLink to='/signin'>
+            SIGN IN
         </OptionLink>
-        <OptionLink to='/redux'>
-          REDUX
-        </OptionLink>
-        <OptionLink to='/home'>
-          HOME
-        </OptionLink>
-        <OptionLink to='/shop'>
-          SHOP
-        </OptionLink>
-        <OptionLink to='/contact'>
-          CONTACT
-        </OptionLink>       
-        { /* Logic for displaying SIGN OUT or SIGN IN */
-          currentUser ?
-          <OptionDiv onClick={ signOutStart }>
-            SIGN OUT
-          </OptionDiv>
-          :  
-          <OptionLink to='/signin'>
-              SIGN IN
-          </OptionLink>
-        }
-        <CartIcon />
-      </OptionsContainer>
-      { 
-        hidden ? null : <CartDropdown />
       }
-    </HeaderContainer>
+      <CartIcon />
+    </OptionsContainer>
+    { 
+      hidden ? null : <CartDropdown />
+    }
+  </HeaderContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
