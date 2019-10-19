@@ -30,6 +30,11 @@ export const OptionLink = styled(Link)`
   cursor: pointer;
 `;
 
+export const OptionDiv = styled.div`
+  padding: 10px 15px;
+  cursor: pointer;
+`;
+
 export const LogoImg = styled.img`
   height: 64px;
   width: 64px;
