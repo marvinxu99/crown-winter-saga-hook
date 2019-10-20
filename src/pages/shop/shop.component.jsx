@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,35 +8,30 @@ import CollectionsOverviewContainer from '../../components/collections-overview/
 import CollectionPageContainer from '../collection/collection.container';
 import PageNotFound from '../page-not-found/page-not-found.component';
 
-class ShopPage extends React.Component { 
-  
-  componentDidMount() {
-    const { fetchCollectionsStart } = this.props;
+const ShopPage = ({ fetchCollectionsStart, match }) => { 
+  // The following useEffect mimics componentDidMount method
+  useEffect(() => {
     fetchCollectionsStart();
-  }
+  }, [fetchCollectionsStart]);
 
-  render() {
-    const { match } = this.props;
+  if (process.env.NODE_ENV === 'development') console.log(match);
 
-    if (process.env.NODE_ENV === 'development') console.log(match);
-
-    return(
-      <div>
-        <Switch>
-          <Route 
-            exact path={`${match.path}`} 
-            component={ CollectionsOverviewContainer } 
-          />
-          <Route 
-            path={`${match.path}/:collectionId`} 
-            component={ CollectionPageContainer } 
-          />
-          <Route component={PageNotFound} /> 
-        </Switch>
-      </div>
-    );
-  };
-} 
+  return(
+    <div>
+      <Switch>
+        <Route 
+          exact path={`${match.path}`} 
+          component={ CollectionsOverviewContainer } 
+        />
+        <Route 
+          path={`${match.path}/:collectionId`} 
+          component={ CollectionPageContainer } 
+        />
+        <Route component={PageNotFound} /> 
+      </Switch>
+    </div>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
